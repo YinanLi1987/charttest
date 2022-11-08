@@ -1,11 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
-import BarChart from "./components/BarChart";
+import V1_v2 from "./components/V1_v2";
 
 function App() {
   return (
     <>
-      <BarChart />
+      <V1_v2 />
     </>
   );
 }
