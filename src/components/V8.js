@@ -1,3 +1,17 @@
-//Assigned to:
-//Fuctions: show v8 as required
-//Requirements:
+
+import React from 'react';
+
+ 
+function V8() {
+    return (
+     <>
+ 
+        <div>This is V8</div>
+        
+  
+
+     </>
+    );
+  }
+  
+  export default V8;

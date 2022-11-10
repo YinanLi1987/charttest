@@ -1,15 +1,3 @@
-//Assigned to: Yinan
-//Fuctions: show v1 and v2 as required
-//Requirements:
-//Use HadCRUT5 data (HadCRUT5 analysis time series: ensemble means and uncertainties)
-//Provide zoomable line chart with toggle options for monthly and annual data
-//Plot all three data series by their anomaly values and each series with different color
-//Global (NH+SH)/2
-//Northern hemisphere
-//Southern hemisphere
-//The horizontal axis of the chart should be years
-//Provide link to data sources
-
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,14 +6,13 @@ import Chart from "chart.js/auto";
 
 const URL = "http://localhost:3001/";
 const V1_v2 = () => {
-  const [chart_tem_year, setChart_tem_year] = useState([]);
+  const [chart_tem_month, setChart_tem_month] = useState([]);
 
   useEffect(() => {
     axios
       .get(URL)
       .then((response) => {
-        console.log(response.data);
-        setChart_tem_year(response.data);
+        setChart_tem_month(response.data);
       })
       .catch((error) => {
         alert(error.response.data.error);
@@ -33,39 +20,38 @@ const V1_v2 = () => {
   }, []);
 
   var data = {
-    labels: chart_tem_year.map((x) => x.Time_month),
+    labels: chart_tem_month.map((x) => x.Time_month),
     datasets: [
       {
-        label: "Global (NH+SH)/2",
-        data: chart_tem_year.map((x) => x.Global_anomaly_month),
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 1,
+        label: "Global",
+        data: chart_tem_month.map((x) => x.Global_anomaly_month),
+        borderColor: ["rgba(255, 99, 132, 1)"],
+        borderWidth: 2,
+      },
+
+      {
+        label: "Northern",
+        data: chart_tem_month.map((x) => x.Northern_anomaly_month),
+        borderColor: ["rgba(54, 162, 235, 1)"],
+        borderWidth: 2,
+      },
+
+      {
+        label: "Southern",
+        data: chart_tem_month.map((x) => x.Southern_anomaly_month),
+        borderColor: ["rgba(255, 206, 86, 1)"],
+        borderWidth: 2,
       },
     ],
   };
 
   var options = {
-    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
       },
     },
+
     legend: {
       labels: {
         fontSize: 26,
@@ -75,7 +61,16 @@ const V1_v2 = () => {
 
   return (
     <div>
-      <Line data={data} options={options} height={400} />
+      <Line data={data} options={options} height={400} width={850} />
+
+      <div className="btn-group" role="group" aria-label="Basic example">
+        <button type="button" className="btn btn-primary">
+          Year
+        </button>
+        <button type="button" className="btn btn-primary">
+          Month
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,7 @@
+//Assigned to :Yinan
+//Founctions: Create the node.js server
+//              Define the routes to database for API
+
 const express = require("express");
 const cors = require("cors");
 
