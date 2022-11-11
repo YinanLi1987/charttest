@@ -3,14 +3,21 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import DescriptionV1V2 from "./DescriptionV1V2"
 
 const URL = "http://localhost:3001/";
+
 const V1_v2 = () => {
   const [chart_tem_month, setChart_tem_month] = useState([]);
   const [chart_tem_year, setChart_tem_year] = useState([]);
   const ref_year = useRef(null);
   const ref_month = useRef(null);
   const ref_btn = useRef(null);
+  
+
+
+
+
 
   useEffect(() => {
     axios
@@ -23,9 +30,7 @@ const V1_v2 = () => {
         alert(error.response.data.error);
       });
   }, []);
-  var resulet=chart_tem_year.map((x) => x.Time).filter(Boolean);
 
-console.log(resulet);
   var data_month = {
     labels: chart_tem_month.map((x) => x.Time_month),
 
@@ -54,7 +59,7 @@ console.log(resulet);
   };
   
   var data_year = {
-    labels: chart_tem_year.sort((a,b)=> a- b).map((x) => x.Time),
+    labels: chart_tem_year.map((x) => x.Time).filter(Boolean),
 
     datasets: [
       {
@@ -66,21 +71,21 @@ console.log(resulet);
 
       {
         label: "Northern",
-        data: chart_tem_year.map((x) => x.Northern_anomaly),
+        data: chart_tem_year.map((x) => x.Northern_anomaly).filter(Boolean),
         borderColor: ["rgba(54, 162, 235, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Southern",
-        data: chart_tem_year.filter(Boolean).map((x) => x.Southern_anomaly),
+        data: chart_tem_year.map((x) => x.Southern_anomaly).filter(Boolean),
         borderColor: ["rgba(255, 206, 86, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Norhtern Reconstr",
-        data: chart_tem_year.filter(Boolean).map((x) => x.Northern_recon),
+        data: chart_tem_year.map((x) => x.Northern_recon).filter(Boolean),
         borderColor: [  "rgba(75, 192, 192, 1)"],
         borderWidth: 2,
       },
@@ -129,6 +134,7 @@ console.log(resulet);
       >
         Go Monthly
       </button>
+      <DescriptionV1V2 />
     </>
   );
 };

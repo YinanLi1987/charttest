@@ -21,6 +21,16 @@ app.get("/", async function (req, res) {
     res.send(result);
   });
 });
+
+app.get("/description", async function (req, res) {
+  let sql = "SELECT * FROM description";
+  connection.query(sql, function (err, result) {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
+
 app.listen(port, function (err) {
   console.log("listening...." + port);
 });
