@@ -6,7 +6,8 @@ import Chart from "chart.js/auto";
 
 const URL = "http://localhost:3001/";
 const V1_v2 = () => {
-  const [chart_tem, setChart_tem] = useState([]);
+  const [chart_tem_month, setChart_tem_month] = useState([]);
+  const [chart_tem_year, setChart_tem_year] = useState([]);
   const ref_year = useRef(null);
   const ref_month = useRef(null);
   const ref_btn = useRef(null);
@@ -15,7 +16,8 @@ const V1_v2 = () => {
     axios
       .get(URL)
       .then((response) => {
-        setChart_tem(response.data);
+        setChart_tem_year(response.data.slice(0, 364));
+        setChart_tem_month(response.data);
       })
       .catch((error) => {
         alert(error.response.data.error);
@@ -23,26 +25,26 @@ const V1_v2 = () => {
   }, []);
 
   var data_month = {
-    labels: chart_tem.map((x) => x.Time_month),
+    labels: chart_tem_month.map((x) => x.Time_month),
 
     datasets: [
       {
         label: "Global",
-        data: chart_tem.map((x) => x.Global_anomaly_month),
+        data: chart_tem_month.map((x) => x.Global_anomaly_month),
         borderColor: ["rgba(255, 99, 132, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Northern",
-        data: chart_tem.map((x) => x.Northern_anomaly_month),
+        data: chart_tem_month.map((x) => x.Northern_anomaly_month),
         borderColor: ["rgba(54, 162, 235, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Southern",
-        data: chart_tem.map((x) => x.Southern_anomaly_month),
+        data: chart_tem_month.map((x) => x.Southern_anomaly_month),
         borderColor: ["rgba(255, 206, 86, 1)"],
         borderWidth: 2,
       },
@@ -50,27 +52,34 @@ const V1_v2 = () => {
   };
   
   var data_year = {
-    labels: chart_tem.map((x) => x.Time),
+    labels: chart_tem_year.map((x) => x.Time),
 
     datasets: [
       {
         label: "Global",
-        data: chart_tem.map((x) => x.Global_anomaly),
+        data: chart_tem_year.map((x) => x.Global_anomaly),
         borderColor: ["rgba(255, 99, 132, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Northern",
-        data: chart_tem.map((x) => x.Northern_anomaly),
+        data: chart_tem_year.map((x) => x.Northern_anomaly),
         borderColor: ["rgba(54, 162, 235, 1)"],
         borderWidth: 2,
       },
 
       {
         label: "Southern",
-        data: chart_tem.map((x) => x.Southern_anomaly),
+        data: chart_tem_year.map((x) => x.Southern_anomaly),
         borderColor: ["rgba(255, 206, 86, 1)"],
+        borderWidth: 2,
+      },
+
+      {
+        label: "Norhtern Reconstr",
+        data: chart_tem_year.map((x) => x.Northern_recon),
+        borderColor: [  "rgba(75, 192, 192, 1)"],
         borderWidth: 2,
       },
     ],
