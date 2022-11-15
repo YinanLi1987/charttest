@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import DescriptionV1V2 from "./DescriptionV1V2"
+
 
 const URL = "http://localhost:3001/";
 
@@ -13,11 +13,6 @@ const V1_v2 = () => {
   const ref_year = useRef(null);
   const ref_month = useRef(null);
   const ref_btn = useRef(null);
-  
-
-
-
-
 
   useEffect(() => {
     axios
@@ -30,6 +25,7 @@ const V1_v2 = () => {
         alert(error.response.data.error);
       });
   }, []);
+
 
   var data_month = {
     labels: chart_tem_month.map((x) => x.Time_month),
@@ -134,7 +130,8 @@ const V1_v2 = () => {
       >
         Go Monthly
       </button>
-      <DescriptionV1V2 />
+     
+     
     </>
   );
 };

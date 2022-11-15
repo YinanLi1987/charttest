@@ -22,8 +22,9 @@ app.get("/", async function (req, res) {
   });
 });
 
-app.get("/description", async function (req, res) {
-  let sql = "SELECT * FROM description";
+app.get("/v8", async function (req, res) {
+ 
+  let sql = 'SELECT * FROM v8_1511 ';
   connection.query(sql, function (err, result) {
     if (err) throw err;
 
