@@ -1,48 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+
 
 function NavBar() {
   return (
-    <>
-      <nav className="navbar navbar-expand-lg bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Navbar
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to="/" className="nav-link active" aria-current="page">
-                  CO2 and temperature
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/emission" className="nav-link" >
-                  Emission
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/user_specific" className="nav-link" >
-                  Create your view
-                </Link>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Link className='nav-link' to="/">Climate Change Visualisation</Link>  
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Link className='nav-link' to="/">Atmospheric co2 and Temperatures</Link>
+            <Link className='nav-link' to="/emissions">Emission Sources</Link>
+            <Link className='nav-link' to="/user_specific">Create Custom View</Link>
+            <Button variant="light" className='nav-link'>Light</Button>{' '}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

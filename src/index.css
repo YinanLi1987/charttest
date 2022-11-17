@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+
+.row-2 {
+  display: flex;
+  flex: 1;
+}
+
+.row-2 .chart-info-container {
+  flex-direction: row;
+  width: 50%;
+  overflow-x: hidden;
+}
+
+
+@media screen and (max-width: 600px) {
+  .row-2 {
+    display: flex;
+    width: 100%;
+  }
+
+  .chart-info-container{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+}
