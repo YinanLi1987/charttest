@@ -25,11 +25,10 @@ const V5 = () => {
     axios
       .get(URL_DES)
       .then((response) => {
-       setTitle(response.data[4].v_title);
-       setDescription(response.data[4].v_description);
-       setData_link(response.data[4].data_link);
-       setDescription_link(response.data[4].description_link);
-      
+        setTitle(response.data[4].v_title);
+        setDescription(response.data[4].v_description);
+        setData_link(response.data[4].data_link);
+        setDescription_link(response.data[4].description_link);
       })
       .catch((error) => {
         alert(error.response.data.error);
@@ -40,7 +39,6 @@ const V5 = () => {
     axios
       .get(URL)
       .then((response) => {
-        console.log(response.data);
         setChart_gasage(response.data);
       })
       .catch((error) => {
@@ -75,9 +73,7 @@ const V5 = () => {
     ],
   };
 
-
-
-   var options = {
+  var options = {
     maintainAspectRatio: false,
     scales: {
       y: {
@@ -85,25 +81,26 @@ const V5 = () => {
       },
     },
     elements: {
-      point:{
-          radius: 0
-      }},
-  legend: {
-    labels: {
-      fontSize: 26,
+      point: {
+        radius: 0,
+      },
     },
-  },
-    spanGaps: true
+    legend: {
+      labels: {
+        fontSize: 26,
+      },
+    },
+    spanGaps: true,
   };
 
   return (
-    <div className="chart-info-container" >
+    <div className="chart-info-container">
       <h3>V5-{title}</h3>
-        <div className="chart-container">
-            <Line data={data} options={options}/>
-        </div>
-       
-        <div className="chart-description">
+      <div className="chart-container">
+        <Line data={data} options={options} />
+      </div>
+
+      <div className="chart-description">
         <p>Introduction: {description}</p>
         <a href={data_link}>Data source</a>
         <br />

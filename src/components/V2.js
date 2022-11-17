@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
@@ -9,9 +9,6 @@ const URL_DES = "http://localhost:3001/description";
 
 const V1_v2 = () => {
   const [chart_tem_year, setChart_tem_year] = useState([]);
-  const ref_year = useRef(null);
-  const ref_month = useRef(null);
-  const ref_btn = useRef(null);
   const [title, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
   const [data_link, setData_link] = useState([]);
@@ -36,7 +33,7 @@ const V1_v2 = () => {
     axios
       .get(URL)
       .then((response) => {
-        setChart_tem_year(response.data.slice(0, 380));
+        setChart_tem_year(response.data.slice(0, 140));
       })
       .catch((error) => {
         alert(error.response.data.error);
