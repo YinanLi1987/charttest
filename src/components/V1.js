@@ -10,13 +10,11 @@ const URL_DES = "http://localhost:3001/description";
 const V1 = () => {
   const [chart_tem_month, setChart_tem_month] = useState([]);
   const [chart_tem_year, setChart_tem_year] = useState([]);
-  
   const ref_year = useRef(null);
   const ref_month = useRef(null);
   const ref_btn = useRef(null);
-  const ref_line=useRef(null);
-
   const [title, setTitle] = useState([]);
+
   const [description, setDescription] = useState([]);
   const [data_link, setData_link] = useState([]);
   const [description_link, setDescription_link] = useState([]);
@@ -39,9 +37,8 @@ const V1 = () => {
     axios
       .get(URL)
       .then((response) => {
-        setChart_tem_year(response.data.slice(0, 200));
+        setChart_tem_year(response.data.slice(0, 380));
         setChart_tem_month(response.data);
-       
       })
       .catch((error) => {
         alert(error.response.data.error);
@@ -99,6 +96,13 @@ const V1 = () => {
         borderColor: ["rgba(255, 206, 86, 1)"],
         borderWidth: 2,
       },
+
+      {
+        label: "Norhtern Reconstr",
+        data: chart_tem_year.map((x) => x.Northern_recon).filter(Boolean),
+        borderColor: ["rgba(75, 192, 192, 1)"],
+        borderWidth: 2,
+      },
     ],
   };
 
@@ -117,30 +121,6 @@ const V1 = () => {
     },
     spanGaps: true,
   };
-  
-
-  const addV2 = () => {
-    const north_reconsts = {
-      label: "Norhtern Reconstr",
-      data: chart_tem_year.map((x) => x.Northern_recon).filter(Boolean),
-      borderColor: ["rgba(75, 192, 192, 1)"],
-      borderWidth: 2,
-    };
-   
-    switch (data_year.datasets.length) {
-      case 3:
-        data_year.datasets.push(north_reconsts);
-        
-        break;
-      case 4:
-        data_year.datasets.pop();
-        console.log(data_year.datasets);
-        break;
-
-      default:
-        break;
-    }
-  };
 
   //console.log(ref_btn.current.innerHTML);
   return (
@@ -151,7 +131,7 @@ const V1 = () => {
         style={{ display: "block" }}
         className="chart-container"
       >
-        <Line data={data_year} options={options} height={400} width={850} ref={ref_line}/>
+        <Line data={data_year} options={options} height={400} width={850} />
       </div>
 
       <div
@@ -176,14 +156,15 @@ const V1 = () => {
       >
         Go Monthly
       </button>
-
-      <button onClick={(addV2)} >Show Reconstruction</button>
-      <div className="chart-description">
-        <p>Introduction: {description}</p>
-        <a href={data_link}>Data source</a>
-        <br />
-        <a href={description_link}>Data description</a>
-      </div>
+      <div className="chart-info">{description.description}</div>
+      <p>Introduction: {description}</p>
+      <a href={data_link} className="chart-info">
+        Data source
+      </a>
+      <br />
+      <a href={description_link} className="chart-info">
+        Data description
+      </a>
     </div>
   );
 };

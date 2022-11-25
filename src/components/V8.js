@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 import { Line } from "react-chartjs-2";
@@ -22,11 +22,10 @@ function V8() {
     axios
       .get(URL_DES)
       .then((response) => {
-       setTitle(response.data[7].v_title);
-       setDescription(response.data[7].v_description);
-       setData_link(response.data[7].data_link);
-       setDescription_link(response.data[7].description_link);
-      
+        setTitle(response.data[7].v_title);
+        setDescription(response.data[7].v_description);
+        setData_link(response.data[7].data_link);
+        setDescription_link(response.data[7].description_link);
       })
       .catch((error) => {
         alert(error.response.data.error);
@@ -108,13 +107,15 @@ function V8() {
         </form>
       </div>
 
-      <div className="chart-description">
-      
-      
+      <div className="chart-info">{description.description}</div>
       <p>Introduction: {description}</p>
-      <a href={data_link }>Data source</a><br/>
-      <a href={description_link}>Data description</a>
-    </div>
+      <a href={data_link} className="chart-info">
+        Data source
+      </a>
+      <br />
+      <a href={description_link} className="chart-info">
+        Data description
+      </a>
     </div>
   );
 }

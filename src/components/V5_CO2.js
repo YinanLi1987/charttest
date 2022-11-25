@@ -52,22 +52,8 @@ const V5 = () => {
       {
         label: "Gasage",
         data: chart_gasage.map((x) => x.co2_ppmv),
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+        borderColor: ["rgba(255, 99, 132, 1)"],
         borderWidth: 1,
       },
     ],
@@ -99,13 +85,15 @@ const V5 = () => {
       <div className="chart-container">
         <Line data={data} options={options} />
       </div>
-
-      <div className="chart-description">
-        <p>Introduction: {description}</p>
-        <a href={data_link}>Data source</a>
-        <br />
-        <a href={description_link}>Data description</a>
-      </div>
+      <div className="chart-info">{description.description}</div>
+      <p>Introduction: {description}</p>
+      <a href={data_link} className="chart-info">
+        Data source
+      </a>
+      <br />
+      <a href={description_link} className="chart-info">
+        Data description
+      </a>
     </div>
   );
 };
