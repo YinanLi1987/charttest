@@ -59,7 +59,9 @@ export default function AUTH(props) {
       //do something with the result
       console.log(result);
       const receivedJWT = result.data.jwt;
-      props.login(receivedJWT);
+      localStorage.setItem("jwt", receivedJWT);
+      const token = localStorage.getItem("jwt")
+      props.login(token);
       navigate("/", { replace: true });
       
     } catch (error) {

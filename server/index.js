@@ -121,11 +121,15 @@ app.post(
       expiresIn: "1d",
     };
     const generatedJWT = jwt.sign(payload, secretKey, options);
+    //store JWT at localStorage
+   
     // send JWT as a response
-    console.log("successed")
+  
+    
     res.json({ jwt: generatedJWT });
     
   }
+ 
 );
 
 

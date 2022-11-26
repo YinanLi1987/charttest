@@ -1,22 +1,26 @@
 import React from "react";
 import jwt_decode from "jwt-decode";
 
-
 function N3_USER_SPECIFIC(props) {
   const decodedToken = jwt_decode(props.jwt);
-  console.log(decodedToken)
+  console.log(decodedToken);
   var URL = "https://github.com/";
   var customURL = "team11webdev";
   var customID = 23;
 
   return (
     <>
-     <div>
-      Decoded Token from payload<br />
-      User Id:{decodedToken.user.id}
-      User Email:{decodedToken.user.Email}
-      User Name:{decodedToken.user.Username}
-     </div>
+      <div>
+        Decoded Token from payload
+        <br />
+        User Id:{decodedToken.user.id}
+        <br />
+        User Email:{decodedToken.user.Email}
+        <br />
+        User Name:{decodedToken.user.Username}
+        <br />
+        <button>Delete my counte</button>
+      </div>
       <div className="n3-view-container">
         <div className="created-custom-container">
           <h3>Created Custom Views</h3>

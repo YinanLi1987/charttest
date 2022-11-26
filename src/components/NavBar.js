@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 function NavBar(props) {
+
+  
+  
   return (
     <Navbar expand="lg" className="whole-nav">
       <Container>
@@ -20,11 +23,14 @@ function NavBar(props) {
             <Link className="nav-link" to="/emissions">
               Emission Sources
             </Link>
-            <div>
-              {props.userLoggedIn ? (
-                <Link className="nav-link" to="/user_specific">
+            <Link className="nav-link" to="/user_specific">
                   Create Custom View
                 </Link>
+            <div>
+              {props.userLoggedIn ? (
+               <Link className="nav-link"  >
+               Logout
+              </Link>
               ) : (
                 <Link className="nav-link" to="/login">
                   Login/Signup

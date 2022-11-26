@@ -9,31 +9,45 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
- 
   const [userJWT, setUserJWT] = useState(null);
 
   let authRoutes = (
     <>
-      <Route path="/login" element={<Auth login={newJWT=>setUserJWT(newJWT)
-      } />} />
+      <Route
+        path="/login"
+        element={<Auth login={(newJWT) => setUserJWT(newJWT)} />}
+      />
     </>
   );
   if (userJWT != null) {
     authRoutes = (
       <>
-        <Route path="/user_specific" element={<N3_USER_SPECIFIC jwt={userJWT} />} />
+        <Route path="/logout" />
       </>
     );
   }
   return (
     <>
-      <NavBar userLoggedIn={userJWT!=null} />
+      <NavBar userLoggedIn={userJWT != null} />
 
       <Routes>
-        <Route path="/" element={<N1_CO2_TEMP userLoggedIn={userJWT!=null} />} />
-        <Route path="/emissions" element={<N2_EMISSIONS userLoggedIn={userJWT!=null} />} />
+        <Route
+          path="/"
+          element={<N1_CO2_TEMP userLoggedIn={userJWT != null} />}
+        />
+        <Route
+          path="/emissions"
+          element={<N2_EMISSIONS userLoggedIn={userJWT != null} />}
+        />
+        <Route
+          path="/user_specific"
+          element={<N3_USER_SPECIFIC jwt={userJWT} />}
+        />
         {authRoutes}
-        <Route path="*" element={<N1_CO2_TEMP userLoggedIn={userJWT!=null} />} />
+        <Route
+          path="*"
+          element={<N1_CO2_TEMP userLoggedIn={userJWT != null} />}
+        />
       </Routes>
     </>
   );
