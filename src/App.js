@@ -22,7 +22,10 @@ function App() {
   if (userJWT != null) {
     authRoutes = (
       <>
-        <Route path="/logout" />
+       <Route
+          path="/user_specific"
+          element={<N3_USER_SPECIFIC jwt={userJWT} />}
+        />
       </>
     );
   }
@@ -39,15 +42,9 @@ function App() {
           path="/emissions"
           element={<N2_EMISSIONS userLoggedIn={userJWT != null} />}
         />
-        <Route
-          path="/user_specific"
-          element={<N3_USER_SPECIFIC jwt={userJWT} />}
-        />
+        
         {authRoutes}
-        <Route
-          path="*"
-          element={<N1_CO2_TEMP userLoggedIn={userJWT != null} />}
-        />
+        <Route path="*" element={<N1_CO2_TEMP />} />
       </Routes>
     </>
   );

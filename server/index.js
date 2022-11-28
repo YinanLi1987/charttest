@@ -73,7 +73,6 @@ passport.use(
           // if passwords match, then proceed to route handler (the proceed resource)
           if (bcrypt.compareSync(password, userInfo[0].Password) == true) {
             done(null, userInfo[0]);
-           
           } else {
             // reject the request
             done(null, false);
@@ -87,10 +86,9 @@ passport.use(
   })
 );
 
-
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "mysecretkey"
+  secretOrKey: "mysecretkey",
 };
 passport.use(
   new JwtStrategy(jwtOptions, function (jwt_payload, done) {
@@ -106,14 +104,14 @@ app.post(
   //check username and password
   passport.authenticate("basic", { session: false }),
   (req, res) => {
-    console.log(req.user.Email)
-   
+    console.log(req.user.Email);
+
     // generate JWT token
     const payload = {
       user: {
-        id:req.user.User_id,
-        Email:req.user.Email,
-        Username:req.user.Username
+        id: req.user.User_id,
+        Email: req.user.Email,
+        Username: req.user.Username,
       },
     };
     const secretKey = "mysecretkey";
@@ -122,16 +120,12 @@ app.post(
     };
     const generatedJWT = jwt.sign(payload, secretKey, options);
     //store JWT at localStorage
-   
-    // send JWT as a response
-  
-    
-    res.json({ jwt: generatedJWT });
-    
-  }
- 
-);
 
+    // send JWT as a response
+
+    res.json({ jwt: generatedJWT });
+  }
+);
 
 //get user-pecific view
 app.get(
@@ -245,10 +239,6 @@ app.get("/description", async function (req, res) {
     res.send(result);
   });
 });
-
-
-
-
 
 //listen method
 app.listen(port, function (err) {
