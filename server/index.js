@@ -19,7 +19,6 @@ const port = 3001;
 
 //-------SIGNUP (create a new user and store it in the database with unique id and hashed password)---------
 app.post("/signup", (req, res) => {
-  console.log(req.body);
   if ("username" in req.body == false) {
     res.status(400);
     res.json({ status: "Missing username from body" });
@@ -44,7 +43,7 @@ app.post("/signup", (req, res) => {
     username: req.body.username,
     password: passwordHash,
   };
-  console.log(newUser);
+
   connection.query(
     `INSERT INTO User(User_id, Email, Username, Password) VALUES ('${newUser.id}', '${newUser.email}', '${newUser.username}', '${newUser.password}')`,
     res
@@ -60,14 +59,12 @@ app.post("/signup", (req, res) => {
 
 passport.use(
   new BasicStrategy(function (username, password, done) {
-    console.log("username:" + username);
-    console.log("password:" + password);
     // search matching username from our user table
     connection.query(
       `SELECT * FROM User WHERE Username="${username}"`,
       function (err, results, fields) {
         const userInfo = results;
-        console.log(userInfo);
+
         // if match is found , comparte the passwords
         if (userInfo != null) {
           // if passwords match, then proceed to route handler (the proceed resource)
@@ -92,9 +89,6 @@ const jwtOptions = {
 };
 passport.use(
   new JwtStrategy(jwtOptions, function (jwt_payload, done) {
-    console.log("JWT is valid");
-    console.log("payload is as follows");
-    console.log(jwt_payload);
     done(null, jwt_payload);
   })
 );
@@ -104,8 +98,6 @@ app.post(
   //check username and password
   passport.authenticate("basic", { session: false }),
   (req, res) => {
-    console.log(req.user.Email);
-
     // generate JWT token
     const payload = {
       user: {
@@ -133,10 +125,47 @@ app.get(
   passport.authenticate("jwt", { session: false }),
 
   (req, res) => {
-    console.log(req.user);
     res.send("Hello protected world");
   }
 );
+app.post("/create", (req, res) => {
+  const newSpecification = {
+    customiseid: uuidv4(),
+    userid: req.body.userid,
+    V1: req.body.V1,
+    description01: req.body.description01,
+    V2: req.body.V2,
+    description02: req.body.description02,
+    V3: req.body.V3,
+    description03: req.body.description03,
+    V4: req.body.V4,
+    description04: req.body.description04,
+    V5: req.body.V5,
+    description05: req.body.description05,
+    V6: req.body.V6,
+    description06: req.body.description06,
+    V7: req.body.V7,
+    description07: req.body.description07,
+    V8: req.body.V8,
+    description08: req.body.description08,
+    V9: req.body.V9,
+    description09: req.body.description09,
+  };
+
+  connection.query(
+    `INSERT INTO customise (customiseid,userid,V1,description01,V2,description02,V3,description03,V4,description04,V5,description05,V6,description06,V7,description07,V8,description08,V9,description09) VALUES ('${newSpecification.customiseid}','${newSpecification.userid}', '${newSpecification.V1}', '${newSpecification.description01}','${newSpecification.V2}', '${newSpecification.description02}', '${newSpecification.V3}','${newSpecification.description03}','${newSpecification.V4}', '${newSpecification.description04}', '${newSpecification.V5}','${newSpecification.description05}','${newSpecification.V6}', '${newSpecification.description06}', '${newSpecification.V7}','${newSpecification.description07}','${newSpecification.V8}', '${newSpecification.description08}','${newSpecification.V9}', '${newSpecification.description09}')`,
+    res
+  );
+  res.status(201).json({ status: "user created" });
+});
+// delete user
+app.post("/delete", (req, res) => {
+  const deleteUser = req.body.userid;
+
+  connection.query(`DELETE FROM User WHERE User_id='${deleteUser}'`, res);
+
+  res.status(201).json({ status: "user deleted" });
+});
 // read data from database v1 v2
 app.get("/", async function (req, res) {
   let sql = "SELECT * FROM v1_v2";
@@ -229,10 +258,17 @@ app.get("/v8", async function (req, res) {
     res.send(result);
   });
 });
-
-//read data from database v8
 app.get("/description", async function (req, res) {
   let sql = "SELECT * FROM description ";
+  connection.query(sql, function (err, result) {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
+
+app.get("/list", async function (req, res) {
+  let sql = `SELECT * FROM customise `;
   connection.query(sql, function (err, result) {
     if (err) throw err;
 

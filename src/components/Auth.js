@@ -57,7 +57,7 @@ export default function AUTH(props) {
        }
       });
       //do something with the result
-      console.log(result);
+    
       const receivedJWT = result.data.jwt;
       localStorage.setItem("jwt", receivedJWT);
       const token = localStorage.getItem("jwt")
