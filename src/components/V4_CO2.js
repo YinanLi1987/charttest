@@ -90,6 +90,9 @@ export default function V4_CO2() {
 
   var options = {
     onHover: (e, activeElement) => {
+      if(activeElement[0]==undefined){
+        return null;
+      }else{
       //let datasetIndex = activeElement[0].datasetIndex
       let dataIndex = activeElement[0].index;
       //let datasetLabel = e.chart.data.datasets[datasetIndex].label
@@ -101,8 +104,8 @@ export default function V4_CO2() {
           setCurrentEvent(s.Event);
         }
         return null;
-      });
-    },
+        });
+    }},
     scales: {
       x: {
         beginAtZero: false,

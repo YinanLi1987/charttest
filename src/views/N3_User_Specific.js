@@ -1,16 +1,14 @@
 import React from "react";
 import jwt_decode from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Constants from "../components/Constants.json";
 import List from "../components/List";
 
-const URL_List = Constants.API_ADDRESS + "/list";
-
 function N3_USER_SPECIFIC(props) {
   const decodedToken = jwt_decode(props.jwt);
-  console.log(decodedToken.user.id);
+
   const navigate = useNavigate();
 
   const [v1_value, setV1_value] = useState(false);
@@ -48,7 +46,6 @@ function N3_USER_SPECIFIC(props) {
         V9: event.target.V9.value,
         description09: event.target.description09.value,
       });
-      console.log(result);
 
       setTimeout(() => {
         navigate("/", { replace: true });
@@ -65,22 +62,21 @@ function N3_USER_SPECIFIC(props) {
       const result = await axios.post(Constants.API_ADDRESS + "/delete", {
         userid: decodedToken.user.id,
       });
-      console.log(result);
-      window.location.reload(false);
+
       setTimeout(() => {
         navigate("/", { replace: true });
       }, 1500);
+      window.location.reload(false);
     } catch (error) {
       console.error(error);
     }
   };
- 
 
   return (
     <>
       <div>
         <h2>Hi, {decodedToken.user.Username},</h2>
-        <List/>
+        <List />
 
         <h3>you can make your own visualization and share it with others!</h3>
         <form onSubmit={handledelete}>

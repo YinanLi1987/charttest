@@ -8,6 +8,7 @@ import axios from "axios";
 import Constants from "./Constants.json";
 export default function AUTH(props) {
   const [signupProcessState, setSignupProcessState] = useState("default");
+
   let [authMode, setAuthMode] = useState("login");
   const changeAuthMode = () => {
     setAuthMode(authMode === "login" ? "signup" : "login");
@@ -26,7 +27,7 @@ export default function AUTH(props) {
     event.preventDefault();
     setSignupProcessState("processing");
     try {
-      const result = await axios.post(Constants.API_ADDRESS + '/signup', {
+      const result = await axios.post(Constants.API_ADDRESS + "/signup", {
         email: event.target.email.value,
         username: event.target.username.value,
         password: event.target.password.value,
@@ -42,34 +43,31 @@ export default function AUTH(props) {
     }
   };
 
-
   //handle login process
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
- 
+
     try {
-      const result = await axios.post(Constants.API_ADDRESS + "/jwtLogin",
-       null,
-       {
-       auth:{
-        username: event.target.username.value,
-        password:event.target.password.value,
-       }
-      });
-      //do something with the result
-    
+      const result = await axios.post(
+        Constants.API_ADDRESS + "/jwtLogin",
+        null,
+        {
+          auth: {
+            username: event.target.username.value,
+            password: event.target.password.value,
+          },
+        }
+      );
+
       const receivedJWT = result.data.jwt;
       localStorage.setItem("jwt", receivedJWT);
-      const token = localStorage.getItem("jwt")
+      const token = localStorage.getItem("jwt");
       props.login(token);
       navigate("/", { replace: true });
-      
     } catch (error) {
-     
       console.error(error);
     }
   };
-
 
   let signupUIControls = null;
   switch (signupProcessState) {

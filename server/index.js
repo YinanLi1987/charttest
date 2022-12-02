@@ -63,13 +63,13 @@ passport.use(
     connection.query(
       `SELECT * FROM User WHERE Username="${username}"`,
       function (err, results, fields) {
-        const userInfo = results;
-
+        const userInfo = results[0];
+        console.log(userInfo);
         // if match is found , comparte the passwords
         if (userInfo != null) {
           // if passwords match, then proceed to route handler (the proceed resource)
-          if (bcrypt.compareSync(password, userInfo[0].Password) == true) {
-            done(null, userInfo[0]);
+          if (bcrypt.compareSync(password, userInfo.Password) == true) {
+            done(null, userInfo);
           } else {
             // reject the request
             done(null, false);
@@ -153,18 +153,20 @@ app.post("/create", (req, res) => {
   };
 
   connection.query(
-    `INSERT INTO customise (customiseid,userid,V1,description01,V2,description02,V3,description03,V4,description04,V5,description05,V6,description06,V7,description07,V8,description08,V9,description09) VALUES ('${newSpecification.customiseid}','${newSpecification.userid}', '${newSpecification.V1}', '${newSpecification.description01}','${newSpecification.V2}', '${newSpecification.description02}', '${newSpecification.V3}','${newSpecification.description03}','${newSpecification.V4}', '${newSpecification.description04}', '${newSpecification.V5}','${newSpecification.description05}','${newSpecification.V6}', '${newSpecification.description06}', '${newSpecification.V7}','${newSpecification.description07}','${newSpecification.V8}', '${newSpecification.description08}','${newSpecification.V9}', '${newSpecification.description09}')`,
+    `INSERT INTO customise (customiseid,userid,view1,description01,view2,description02,view3,description03,view4,description04,view5,description05,view6,description06,view7,description07,view8,description08,view9,description09) VALUES ('${newSpecification.customiseid}','${newSpecification.userid}', '${newSpecification.V1}', '${newSpecification.description01}','${newSpecification.V2}', '${newSpecification.description02}', '${newSpecification.V3}','${newSpecification.description03}','${newSpecification.V4}', '${newSpecification.description04}', '${newSpecification.V5}','${newSpecification.description05}','${newSpecification.V6}', '${newSpecification.description06}', '${newSpecification.V7}','${newSpecification.description07}','${newSpecification.V8}', '${newSpecification.description08}','${newSpecification.V9}', '${newSpecification.description09}')`,
     res
   );
   res.status(201).json({ status: "user created" });
 });
 // delete user
-app.post("/delete", (req, res) => {
+app.post("/delete", async function (req, res) {
   const deleteUser = req.body.userid;
-
-  connection.query(`DELETE FROM User WHERE User_id='${deleteUser}'`, res);
-
-  res.status(201).json({ status: "user deleted" });
+  let sql = `DELETE FROM customise WHERE userid='${deleteUser}'`;
+  connection.query(sql, function (err, result) {
+    connection.query(`DELETE FROM User WHERE User_id='${deleteUser}'`);
+    if (err) throw err;
+    res.send(result);
+  });
 });
 // read data from database v1 v2
 app.get("/", async function (req, res) {
