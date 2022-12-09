@@ -1,0 +1,5 @@
+runtime: nodejs14
+service: server
+entrypoint: node index.js
+env_variables:
+  GAE_DB_ADDRESS: "/cloudsql/charttest-367617:europe-north1:charttest"
