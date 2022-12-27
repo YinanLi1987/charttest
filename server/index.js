@@ -10,15 +10,19 @@ const BasicStrategy = require("passport-http").BasicStrategy;
 const jwt = require("jsonwebtoken");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
+app.use(
+  cors({
+    origin: "https://defautl-dot-charttest-367617.lm.r.appspot.com",
+  })
+);
 
 const port = process.env.PORT || 3001;
 if (process.env.NODE_ENV === "production") {
-  connection.socketPath = process.env.GAE_DB_ADDRESS
+  connection.socketPath = process.env.GAE_DB_ADDRESS;
 } else {
   connection.host = "localhost";
 }
 
-app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //-------SIGNUP (create a new user and store it in the database with unique id and hashed password)---------

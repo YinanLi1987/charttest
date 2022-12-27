@@ -11,7 +11,7 @@ import V7 from "../components/V7_V10_Carbon";
 import V8 from "../components/V8";
 import V9_CO2_SECTOR from "../components/V9_CO2_Sector";
 import Constants from "../Constants.json";
-const URL = process.env.REACT_APP_API_ADDRESS  + "/list";
+const URL = process.env.REACT_APP_API_ADDRESS + "/list";
 
 function Customise() {
   const { id } = useParams();
@@ -50,39 +50,33 @@ function Customise() {
       });
   }, []);
 
-  const handleClick = () => {
-    for (let i = 0; i < userviews.length; i++) {
-      if (userviews[i].customiseid == id) {
-        setView1(userviews[i].view1);
-        setView2(userviews[i].view2);
-        setView3(userviews[i].view3);
-        setView4(userviews[i].view4);
-        setView5(userviews[i].view5);
-        setView6(userviews[i].view6);
-        setView7(userviews[i].view7);
-        setView8(userviews[i].view8);
-        setView9(userviews[i].view9);
-        setDescription01(userviews[i].description01);
-        setDescription02(userviews[i].description02);
-        setDescription03(userviews[i].description03);
-        setDescription04(userviews[i].description04);
-        setDescription05(userviews[i].description05);
-        setDescription06(userviews[i].description06);
-        setDescription07(userviews[i].description07);
-        setDescription08(userviews[i].description08);
-        setDescription09(userviews[i].description09);
+  for (let i = 0; i < userviews.length; i++) {
+    if (userviews[i].customiseid == id) {
+      setView1(userviews[i].view1);
+      setView2(userviews[i].view2);
+      setView3(userviews[i].view3);
+      setView4(userviews[i].view4);
+      setView5(userviews[i].view5);
+      setView6(userviews[i].view6);
+      setView7(userviews[i].view7);
+      setView8(userviews[i].view8);
+      setView9(userviews[i].view9);
+      setDescription01(userviews[i].description01);
+      setDescription02(userviews[i].description02);
+      setDescription03(userviews[i].description03);
+      setDescription04(userviews[i].description04);
+      setDescription05(userviews[i].description05);
+      setDescription06(userviews[i].description06);
+      setDescription07(userviews[i].description07);
+      setDescription08(userviews[i].description08);
+      setDescription09(userviews[i].description09);
 
-        setColumns(userviews[i].columns);
-      }
+      setColumns(userviews[i].columns);
     }
-  };
+  }
   console.log(columns);
   return (
     <>
-      <button onClick={handleClick}>
-        Click to Show(this is a bug, you have to click to go to next)
-      </button>
-
       <div>
         <div>{view1 == "true" ? <V1 /> : null}</div>
         <div>{view1 == "true" ? <p>{description01}</p> : null}</div>
